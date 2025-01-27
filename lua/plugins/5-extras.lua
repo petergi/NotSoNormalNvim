@@ -15,7 +15,7 @@ return {
       },
       picker = { enabled = true },
       quickfile = { enabled = true },
-      scroll = { enabled = true },
+      scroll = { enabled = false },
       statuscolumn = { enabled = true },
       words = { enabled = true },
       zen = { enabled = true },
@@ -23,7 +23,7 @@ return {
       gitbrowse = { enabled = true },
       styles = {
         notification = {
-          -- wo = { wrap = true } -- Wrap notifications
+          wo = { wrap = true }, -- Wrap notifications
         },
       },
     },
@@ -33,7 +33,7 @@ return {
         function() Snacks.zen() end,
         desc = "Toggle Zen Mode",
       },
-      { "<leader>Z", function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
+      { "<leader>Z",  function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
       {
         "<leader>.",
         function() Snacks.scratch() end,
@@ -75,7 +75,7 @@ return {
         function() Snacks.lazygit.log_file() end,
         desc = "Lazygit Current File History",
       },
-      { "<leader>gG", function() Snacks.lazygit() end, desc = "Lazygit" },
+      { "<leader>gG", function() Snacks.lazygit() end,  desc = "Lazygit" },
       {
         "<leader>go",
         function() Snacks.lazygit.log() end,
@@ -142,23 +142,23 @@ return {
           --     :map("<leader>us")
           -- Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
           Snacks.toggle
-            .option("relativenumber", { name = "Relative Number" })
-            :map("<leader>uR")
+              .option("relativenumber", { name = "Relative Number" })
+              :map("<leader>uR")
           Snacks.toggle.diagnostics():map("<leader>ud")
           -- Snacks.toggle.line_number():map("<leader>ul")
           Snacks.toggle
-            .option("conceallevel", {
-              off = 0,
-              on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
-            })
-            :map("<leader>uS")
+              .option("conceallevel", {
+                off = 0,
+                on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
+              })
+              :map("<leader>uS")
           Snacks.toggle.treesitter():map("<leader>uT")
           Snacks.toggle
-            .option(
-              "background",
-              { off = "light", on = "dark", name = "Dark Background" }
-            )
-            :map("<leader>ub")
+              .option(
+                "background",
+                { off = "light", on = "dark", name = "Dark Background" }
+              )
+              :map("<leader>ub")
           -- Snacks.toggle.inlay_hints():map("<leader>uh")
           -- Snacks.toggle.indent():map("<leader>uD")
           Snacks.toggle.dim():map("<leader>uX")

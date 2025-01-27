@@ -282,3 +282,12 @@ end, { desc = "Write all changed buffers" })
 cmd("CloseNotifications", function()
   require("notify").dismiss({ pending = true, silent = true })
 end, { desc = "Dismiss all notifications" })
+
+
+require'lspconfig'.alloy_ls.setup{}
+vim.filetype.add({
+  pattern = {
+    ['.*/*.als'] = 'alloy',
+  },
+})
+

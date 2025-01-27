@@ -19,6 +19,7 @@
 --       -> mini.animate                [animations]
 --       -> highlight-undo              [highlights]
 --       -> which-key                   [on-screen keybinding]
+--       -> nerdy.nvim                  [nerd fonts]
 
 local utils = require("base.utils")
 local is_windows = vim.fn.has('win32') == 1         -- true if on windows
@@ -118,35 +119,40 @@ return {
       --   [[ \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
       -- }
 
-      if is_android then
-        dashboard.section.header.val = {
-          [[         __                ]],
-          [[ __  __ /\_\    ___ ___    ]],
-          [[/\ \/\ \\/\ \ /' __` __`\  ]],
-          [[\ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-          [[ \ \___/  \ \_\ \_\ \_\ \_\]],
-          [[  \/__/    \/_/\/_/\/_/\/_/]],
-        }
-      else
-        dashboard.section.header.val = {
-          [[888b      88                                                           88]],
-          [[8888b     88                                                           88]],
-          [[88 `8b    88                                                           88]],
-          [[88  `8b   88   ,adPPYba,   8b,dPPYba,  88,dPYba,,adPYba,   ,adPPYYba,  88]],
-          [[88   `8b  88  a8"     "8a  88P'   "Y8  88P'   "88"    "8a  ""     `Y8  88]],
-          [[88    `8b 88  8b       d8  88          88      88      88  ,adPPPPP88  88]],
-          [[88     `8888  "8a,   ,a8"  88          88      88      88  88,    ,88  88]],
-          [[88      `888   `"YbbdP"'   88          88      88      88  `"8bbdP"Y8  88]],
-          [[                                    __                ]],
-          [[                      ___   __  __ /\_\    ___ ___    ]],
-          [[                    /' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
-          [[                    /\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-          [[                    \ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
-          [[                     \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
-        }
-      end
+      -- if is_android then
+      --   dashboard.section.header.val = {
+      --     [[         __                ]],
+      --     [[ __  __ /\_\    ___ ___    ]],
+      --     [[/\ \/\ \\/\ \ /' __` __`\  ]],
+      --     [[\ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+      --     [[ \ \___/  \ \_\ \_\ \_\ \_\]],
+      --     [[  \/__/    \/_/\/_/\/_/\/_/]],
+      --   }
+      -- else
+      --   dashboard.section.header.val = {
+      --     [[888b      88                                                           88]],
+      --     [[8888b     88                                                           88]],
+      --     [[88 `8b    88                                                           88]],
+      --     [[88  `8b   88   ,adPPYba,   8b,dPPYba,  88,dPYba,,adPYba,   ,adPPYYba,  88]],
+      --     [[88   `8b  88  a8"     "8a  88P'   "Y8  88P'   "88"    "8a  ""     `Y8  88]],
+      --     [[88    `8b 88  8b       d8  88          88      88      88  ,adPPPPP88  88]],
+      --     [[88     `8888  "8a,   ,a8"  88          88      88      88  88,    ,88  88]],
+      --     [[88      `888   `"YbbdP"'   88          88      88      88  `"8bbdP"Y8  88]],
+      --     [[                                    __                ]],
+      --     [[                      ___   __  __ /\_\    ___ ___    ]],
+      --     [[                    /' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
+      --     [[                    /\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+      --     [[                    \ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
+      --     [[                     \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
+      --   }
+      -- end
 
-
+      local logo = [[
+   __   _ ______  _____  _    _ _____ _______
+   | \  | |_____ |     |  \  /    |   |  |  |
+   |  \_| |_____ |_____|   \/   __|__ |  |  |
+ ]]
+      dashboard.section.header.val = vim.split(logo, "\n")
       local get_icon = require("base.utils").get_icon
 
       dashboard.section.header.opts.hl = "DashboardHeader"
@@ -717,6 +723,13 @@ return {
       require("base.utils").which_key_register()
     end,
   },
-
+ {
+    '2kabhishek/nerdy.nvim',
+    dependencies = {
+        'stevearc/dressing.nvim',
+        'nvim-telescope/telescope.nvim',
+    },
+    cmd = 'Nerdy',
+},
 
 } -- end of return

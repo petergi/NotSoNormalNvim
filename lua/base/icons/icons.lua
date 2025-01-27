@@ -116,11 +116,11 @@ return {
   Lightbulb = "💡",
 
   -- Alpha
-  GreeterNew = "📄",
-  GreeterRecent = "🌺",
-  GreeterYazi = "🦆",
-  GreeterSessions = "🔎",
-  GreeterProjects = "💼",
+  GreeterNew = "󰦪",
+  GreeterRecent = "󱎝",
+  GreeterYazi = "🦆 ",
+  GreeterSessions = "",
+  GreeterProjects = "󰃖",
   GreeterPlug = "",
 
   -- Mason

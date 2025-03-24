@@ -158,7 +158,7 @@ return {
         },
       }
 
-      dap.configurations.java = {
+     --[[  dap.configurations.java = {
         {
           type = "java",
           request = "attach",
@@ -166,7 +166,7 @@ return {
           hostName = "0.0.0.0",
           port = 5005,
         },
-      }
+      } ]]
 
       ---@diagnostic disable-next-line: missing-fields
       dap_vscode_js.setup({

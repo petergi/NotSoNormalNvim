@@ -4,7 +4,6 @@
 --    Sections:
 --       ## TREE SITTER
 --       -> nvim-treesitter                [syntax highlight]
---       -> ts-comments.nvim               [treesitter comments]
 --       -> render-markdown.nvim           [normal mode markdown]
 --       -> nvim-highlight-colors          [hex colors]
 
@@ -13,7 +12,6 @@
 --       -> mason-lspconfig                [auto start lsp]
 --       -> nvim-lspconfig                 [lsp configs]
 --       -> mason.nvim                     [lsp package manager]
---       -> SchemaStore.nvim               [mason extra schemas]
 --       -> none-ls-autoload.nvim          [mason package loader]
 --       -> none-ls                        [lsp code formatting]
 --       -> garbage-day                    [lsp garbage collector]
@@ -25,13 +23,13 @@
 --       -> cmp-nvim-path                  [auto completion path]
 --       -> cmp-nvim-lsp                   [auto completion lsp]
 --       -> cmp-luasnip                    [auto completion snippets]
+--       -> cmp-copilot                    [auto completion copilot]
 
 local utils = require("base.utils")
-local utils_lsp = require("base.utils.lsp")
 
 return {
   --  TREE SITTER ---------------------------------------------------------
-  --  [syntax highlight] + [treesitter understand html tags] + [comments]
+  --  [syntax highlight]
   --  https://github.com/nvim-treesitter/nvim-treesitter
   --  https://github.com/windwp/nvim-treesitter-textobjects
   {
@@ -210,6 +208,17 @@ return {
         '.git',
       },
     },
+    config = function(_, opts)
+      require("java").setup(opts)               -- Setup.
+      vim.api.nvim_create_autocmd("FileType", { -- Enable for java files.
+        desc = "Load this plugin for java files.",
+        callback = function()
+          local lspconf = utils.get_plugin_opts("nvim-lspconfig")
+          local is_java = vim.bo.filetype == "java"
+          if lspconf and is_java then require("lspconfig").jdtls.setup({}) end
+        end,
+      })
+    end
   }, ]]
 
   --  nvim-lspconfig [lsp configs]
@@ -222,29 +231,35 @@ return {
   },
 
   -- mason-lspconfig [auto start lsp]
-  -- https://github.com/williamboman/mason-lspconfig.nvim
-  -- This plugin auto starts the lsp servers installed by Mason
-  -- every time Neovim trigger the event FileType.
+  -- https://github.com/mason-org/mason-lspconfig.nvim
+  -- This plugin auto start the lsp clients installed by Mason.
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     dependencies = { "neovim/nvim-lspconfig" },
     event = "User BaseFile",
-    opts = function(_, opts)
-      if not opts.handlers then opts.handlers = {} end
-      opts.handlers[1] = function(server) utils_lsp.setup(server) end
-    end,
+    opts = {},
     config = function(_, opts)
       require("mason-lspconfig").setup(opts)
-      utils_lsp.apply_default_lsp_settings() -- Apply our default lsp settings.
-      utils.trigger_event("FileType")        -- This line starts this plugin.
+      utils.apply_lsp_diagnostic_defaults() -- Only needs to be called once.
+
+      -- Apply the lsp mappings to each client in each buffer.
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          local bufnr = args.buf
+          if client and client.name then
+            utils.apply_user_lsp_mappings(client.name, bufnr)
+          end
+        end,
+      })
     end,
   },
 
   --  mason [lsp package manager]
-  --  https://github.com/williamboman/mason.nvim
+  --  https://github.com/mason-org/mason.nvim
   --  https://github.com/zeioth/mason-extra-cmds
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     dependencies = { "zeioth/mason-extra-cmds", opts = {} },
     cmd = {
       "Mason",
@@ -277,15 +292,12 @@ return {
 
   -- none-ls-autoload.nvim [mason package loader]
   -- https://github.com/zeioth/mason-none-ls.nvim
-  -- This plugin auto starts the packages installed by Mason
-  -- every time Neovim trigger the event FileType ().
-  -- By default it will use none-ls builtin sources.
-  -- But you can add external sources if a mason package has no builtin support.
+  -- This plugin auto start the none-ls clients installed by Mason.
   {
     "zeioth/none-ls-autoload.nvim",
     event = "User BaseFile",
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "zeioth/none-ls-external-sources.nvim"
     },
     opts = {
@@ -329,9 +341,6 @@ return {
         command = "shfmt",
         args = { "-i", "2", "-filename", "$FILENAME" },
       })
-
-      -- Attach the user lsp mappings to every none-ls client.
-      return { on_attach = utils_lsp.apply_user_lsp_mappings }
     end
   },
 
@@ -372,7 +381,6 @@ return {
         { path = "stickybuf.nvim", mods = { "stickybuf" } },
         { path = "mini.bufremove", mods = { "mini.bufremove" } },
         { path = "smart-splits.nvim", mods = { "smart-splits" } },
-        { path = "better-scape.nvim", mods = { "better_escape" } },
         { path = "toggleterm.nvim", mods = { "toggleterm" } },
         { path = "neovim-session-manager.nvim", mods = { "session_manager" } },
         { path = "nvim-spectre", mods = { "spectre" } },
@@ -412,7 +420,6 @@ return {
         { path = "nvim-treesitter", mods = { "nvim-treesitter" } },
         { path = "nvim-ts-autotag", mods = { "nvim-ts-autotag" } },
         { path = "nvim-treesitter-textobjects", mods = { "nvim-treesitter", "nvim-treesitter-textobjects" } },
-        { path = "ts-comments.nvim", mods = { "ts-comments" } },
         { path = "markdown.nvim", mods = { "render-markdown" } },
         { path = "nvim-highlight-colors", mods = { "nvim-highlight-colors" } },
         -- { path = "nvim-java", mods = { "java" } },
@@ -420,7 +427,6 @@ return {
         { path = "mason-lspconfig.nvim", mods = { "mason-lspconfig" } },
         { path = "mason.nvim", mods = { "mason", "mason-core", "mason-registry", "mason-vendor" } },
         { path = "mason-extra-cmds", mods = { "masonextracmds" } },
-        { path = "SchemaStore.nvim", mods = { "schemastore" } },
         { path = "none-ls-autoload.nvim", mods = { "none-ls-autoload" } },
         { path = "none-ls.nvim", mods = { "null-ls" } },
         { path = "lazydev.nvim", mods = { "" } },
@@ -444,6 +450,7 @@ return {
         { path = "markdown-preview.nvim", mods = { "mkdp" } }, -- has vimscript
         { path = "markmap.nvim", mods = { "markmap" } },
         { path = "neural", mods = { "neural" } },
+        { path = "copilot", mods = { "copilot" } },
         { path = "guess-indent.nvim", mods = { "guess-indent" } },
         { path = "compiler.nvim", mods = { "compiler" } },
         { path = "overseer.nvim", mods = { "overseer", "lualine", "neotest", "resession", "cmp_overseer" } },
@@ -451,7 +458,9 @@ return {
         { path = "nvim-nio", mods = { "nio" } },
         { path = "nvim-dap-ui", mods = { "dapui" } },
         { path = "cmp-dap", mods = { "cmp_dap" } },
+        { path = "cmp-copilot", mods = { "cmp_copilot" } },
         { path = "mason-nvim-dap.nvim", mods = { "mason-nvim-dap" } },
+
         { path = "one-small-step-for-vimkind", mods = { "osv" } },
         { path = "neotest-dart", mods = { "neotest-dart" } },
         { path = "neotest-dotnet", mods = { "neotest-dotnet" } },
@@ -485,11 +494,12 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp",
-      "onsails/lspkind.nvim"
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "saadparwaiz1/cmp_luasnip"},
+      { "zbirenbaum/copilot-cmp", opts = {} } ,
+      { "hrsh7th/cmp-buffer"} ,
+      { "hrsh7th/cmp-path" },
+      { "onsails/lspkind.nvim" },
     },
     event = "InsertEnter",
     opts = function()
@@ -623,9 +633,11 @@ return {
           end, { "i", "s" }),
         },
         sources = cmp.config.sources {
+          -- Note: Priority decides the order items appear.
           { name = "nvim_lsp", priority = 1000 },
           { name = "lazydev",  priority = 850 },
           { name = "luasnip",  priority = 750 },
+          { name = "copilot",  priority = 600 },
           { name = "buffer",   priority = 500 },
           { name = "path",     priority = 250 },
         },

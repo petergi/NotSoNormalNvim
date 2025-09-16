@@ -4,6 +4,8 @@
 --    Sections:
 --       -> tokyonight                  [theme]
 --       -> astrotheme                  [theme]
+--       -> morta                       [theme]
+--       -> eldritch                    [theme]
 --       -> alpha-nvim                  [greeter]
 --       -> nvim-notify                 [notifications]
 --       -> mini.indentscope            [guides]
@@ -51,6 +53,22 @@ return {
       plugins = { ["dashboard-nvim"] = true },
     },
   },
+
+  --  morta [theme]
+  --  https://github.com/ssstba/morta.nvim
+   {
+     "philosofonusus/morta.nvim",
+     event = "User LoadColorSchemes",
+     opts = {}
+   },
+
+  --  eldritch [theme]
+  --  https://github.com/eldritch-theme/eldritch.nvim
+   {
+     "eldritch-theme/eldritch.nvim",
+     event = "User LoadColorSchemes",
+     opts = {}
+   },
 
   --  alpha-nvim [greeter]
   --  https://github.com/goolord/alpha-nvim
@@ -227,7 +245,7 @@ return {
     event = "User BaseDefered",
     opts = function()
       local fps
-      if is_android then fps = 30 else fps = 144 end
+      if is_android then fps = 30 else fps = 244 end
 
       return {
         timeout = 2500,
@@ -564,7 +582,7 @@ return {
     end
   },
 
-  --  UI icons [icons]
+  --  UI icons [icons - ui]
   --  https://github.com/nvim-tree/nvim-web-devicons
   {
     "nvim-tree/nvim-web-devicons",
@@ -579,7 +597,7 @@ return {
     },
   },
 
-  --  LSP icons [icons]
+  --  LSP icons [icons | lsp]
   --  https://github.com/onsails/lspkind.nvim
   {
     "onsails/lspkind.nvim",
@@ -591,6 +609,7 @@ return {
         Boolean = "⊨",
         Class = "󰌗",
         Constructor = "",
+        Copilot = "",
         Key = "󰌆",
         Namespace = "󰅪",
         Null = "NULL",

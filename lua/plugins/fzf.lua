@@ -85,7 +85,7 @@ return {
           desc = "Find files (Root Dir)",
         }
         maps.n["<Leader>fn"] = {
-          function() require("snacks").notifier.show_history() end,
+          function() vim.cmd "Noice history" end,
           desc = "Find notifications",
         }
         -- find

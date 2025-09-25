@@ -19,7 +19,7 @@ return {
           return vim.g.snacks_indent ~= false and vim.b[buf].snacks_indent ~= false and vim.bo[buf].buftype == ""
         end,
       },
-      notifier = { enabled = true },
+      notifier = { enabled = false },
       scroll = { enabled = true },
       scope = { enabled = true },
       statuscolumn = {

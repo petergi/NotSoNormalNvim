@@ -2,7 +2,9 @@
 
 ## Executive Summary
 
-This report documents the systematic diagnosis and resolution of multiple Blink.cmp plugin configuration conflicts that were preventing Neovim from loading properly in an AstroNvim v5+ environment. The root cause was improper provider configuration across multiple plugins attempting to extend Blink functionality without proper API compliance.
+This report documents the systematic diagnosis and resolution of multiple Blink.cmp plugin configuration conflicts that
+were preventing Neovim from loading properly in an AstroNvim v5+ environment. The root cause was improper provider
+configuration across multiple plugins attempting to extend Blink functionality without proper API compliance.
 
 ## Initial Problem Statement
 
@@ -48,9 +50,8 @@ Multiple plugins in the AstroNvim ecosystem were extending Blink configuration u
 sources.cmdLine has been replaced with cmdline.sources
 ```
 
-**Cause**: Configuration was using the deprecated `sources.cmdline` structure
-**Location**: `plugins/blink.lua` line 93 (sources configuration)
-**Fix Applied**: Migrated to new `cmdline.sources` structure
+**Cause**: Configuration was using the deprecated `sources.cmdline` structure **Location**: `plugins/blink.lua` line 93
+(sources configuration) **Fix Applied**: Migrated to new `cmdline.sources` structure
 
 #### Error 2: Provider Module Validation
 
@@ -60,11 +61,10 @@ sources.providers.dotenv.module: expected string, got nil
 sources.providers.avante_commands.module: expected string, got nil
 ```
 
-**Cause**: Multiple plugins adding providers with incomplete definitions
-**Affected Files**:
+**Cause**: Multiple plugins adding providers with incomplete definitions **Affected Files**:
 
 - `plugins/pack-go.lua` - go_pkgs provider
-- `plugins/blink-cmp.lua` - dotenv provider  
+- `plugins/blink-cmp.lua` - dotenv provider
 - `plugins/avante.lua` - avante completion providers
 - `plugins/dap.lua` - dap provider
 - `plugins/pack-sql.lua` - dadbod provider
@@ -85,7 +85,8 @@ providers = {
 
 ### Strategy 1: Complete Configuration Override
 
-Instead of merging with existing configurations (which could contain invalid providers), implemented a complete configuration replacement:
+Instead of merging with existing configurations (which could contain invalid providers), implemented a complete
+configuration replacement:
 
 ```lua
 opts = function(_, opts)
@@ -112,7 +113,7 @@ Systematically disabled or modified conflicting plugins:
 1. **`blink-cmp.lua`** - Added return guard to prevent loading
 2. **`comp_ai.lua`** - Added return guard, integrated functionality into main config
 3. **`pack-go.lua`** - Commented out Blink specs section
-4. **`dap.lua`** - Commented out Blink specs section  
+4. **`dap.lua`** - Commented out Blink specs section
 5. **`pack-sql.lua`** - Commented out Blink specs section
 
 #### Override Strategy
@@ -140,8 +141,7 @@ sources = {
 
 ### 1. API Migration Fix
 
-**File**: `plugins/blink.lua`
-**Change**: Restructured cmdline configuration
+**File**: `plugins/blink.lua` **Change**: Restructured cmdline configuration
 
 ```lua
 -- OLD (Deprecated)
@@ -167,9 +167,8 @@ cmdline = {
 
 ### 2. Provider Configuration Cleanup
 
-**Approach**: Only include providers with complete, valid definitions
-**Validation**: Every provider includes required `module` field
-**Result**: Clean, minimal provider set that's guaranteed to work
+**Approach**: Only include providers with complete, valid definitions **Validation**: Every provider includes required
+`module` field **Result**: Clean, minimal provider set that's guaranteed to work
 
 ### 3. Conflict Prevention
 
@@ -231,23 +230,23 @@ specs = {
 
 ### 1. Plugin Ecosystem Coordination
 
-**Issue**: Multiple plugins modifying the same configuration surface
-**Solution**: Centralized configuration management with selective overrides
+**Issue**: Multiple plugins modifying the same configuration surface **Solution**: Centralized configuration management
+with selective overrides
 
-### 2. API Version Management  
+### 2. API Version Management
 
-**Issue**: Plugins using deprecated APIs causing validation failures
-**Solution**: Stay current with plugin API documentation and migration guides
+**Issue**: Plugins using deprecated APIs causing validation failures **Solution**: Stay current with plugin API
+documentation and migration guides
 
 ### 3. Provider Validation Requirements
 
-**Issue**: Incomplete provider definitions causing runtime errors
-**Solution**: Always include required fields (especially `module`) in provider configurations
+**Issue**: Incomplete provider definitions causing runtime errors **Solution**: Always include required fields
+(especially `module`) in provider configurations
 
 ### 4. Configuration Strategy
 
-**Issue**: Merging configurations can inherit problems from dependencies
-**Solution**: Use complete configuration override when dealing with validation-sensitive plugins
+**Issue**: Merging configurations can inherit problems from dependencies **Solution**: Use complete configuration
+override when dealing with validation-sensitive plugins
 
 ## Future Maintenance Recommendations
 
@@ -280,8 +279,10 @@ The systematic resolution of these Blink.cmp configuration conflicts required:
 4. **Centralized management** - Consolidating configuration control
 5. **Validation compliance** - Ensuring all providers meet API requirements
 
-The resulting configuration is more stable, maintainable, and compliant with current Blink.cmp standards while preserving all essential completion functionality.
+The resulting configuration is more stable, maintainable, and compliant with current Blink.cmp standards while
+preserving all essential completion functionality.
 
 ---
-*Report generated on September 25, 2025*  
-*AstroNvim v5+ Template Configuration*
+
+_Report generated on September 25, 2025_  
+_AstroNvim v5+ Template Configuration_

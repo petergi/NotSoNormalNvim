@@ -1,3 +1,5 @@
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 -- test filter
 -- string.find(
 --   'vim.lsp.get_active_clients() is deprecated. Run ":checkhealth vim.deprecated" for more information',

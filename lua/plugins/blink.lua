@@ -47,88 +47,88 @@ return {
   opts = function(_, opts)
     -- Completely override the configuration to prevent issues with community pack providers
     local config = {
-    snippets = {
-      expand = function(snippet, _)
-        local ok, utils = pcall(require, "utils")
-        if ok and utils.expand then
-          return utils.expand(snippet)
-        else
-          return vim.snippet.expand(snippet)
-        end
-      end,
-    },
-    sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
-      providers = {
-        lsp = { name = "LSP", module = "blink.cmp.sources.lsp" },
-        path = { name = "Path", module = "blink.cmp.sources.path" },
-        snippets = { name = "Snippets", module = "blink.cmp.sources.snippets" },
-        buffer = { name = "Buffer", module = "blink.cmp.sources.buffer" },
-        cmdline = { name = "Cmdline", module = "blink.cmp.sources.cmdline" },
-      },
-    },
-    cmdline = {
-      sources = function()
-        local type = vim.fn.getcmdtype()
-        if type == "/" or type == "?" then return { "buffer" } end
-        if type == ":" or type == "@" then return { "cmdline" } end
-        return {}
-      end,
-    },
-    keymap = {
-      ["<Up>"] = { "select_prev", "fallback" },
-      ["<Down>"] = { "select_next", "fallback" },
-      ["<C-N>"] = {
-        "snippet_forward",
-      },
-      ["<C-P>"] = {
-        "snippet_backward",
-      },
-      ["<C-J>"] = { "select_next", "fallback" },
-      ["<C-K>"] = { "select_prev", "fallback" },
-      ["<C-U>"] = { "scroll_documentation_up", "fallback" },
-      ["<C-D>"] = { "scroll_documentation_down", "fallback" },
-      ["<C-E>"] = { "hide", "fallback" },
-      ["<CR>"] = { "fallback" },
-      ["<Tab>"] = {
-        function(cmp)
-          if cmp.is_visible() then
-            return cmp.accept()
-          elseif has_words_before() then
-            return cmp.show()
+      snippets = {
+        expand = function(snippet, _)
+          local ok, utils = pcall(require, "utils")
+          if ok and utils.expand then
+            return utils.expand(snippet)
+          else
+            return vim.snippet.expand(snippet)
           end
         end,
-        "fallback",
       },
-      ["<S-Tab>"] = {
-        function(cmp)
-          if cmp.is_visible() then return cmp.select_prev() end
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+        providers = {
+          lsp = { name = "LSP", module = "blink.cmp.sources.lsp" },
+          path = { name = "Path", module = "blink.cmp.sources.path" },
+          snippets = { name = "Snippets", module = "blink.cmp.sources.snippets" },
+          buffer = { name = "Buffer", module = "blink.cmp.sources.buffer" },
+          cmdline = { name = "Cmdline", module = "blink.cmp.sources.cmdline" },
+        },
+      },
+      cmdline = {
+        sources = function()
+          local type = vim.fn.getcmdtype()
+          if type == "/" or type == "?" then return { "buffer" } end
+          if type == ":" or type == "@" then return { "cmdline" } end
+          return {}
         end,
-        "fallback",
       },
-    },
-    appearance = {
-      -- sets the fallback highlight groups to nvim-cmp's highlight groups
-      -- useful for when your theme doesn't support blink.cmp
-      -- will be removed in a future release, assuming themes add support
-      use_nvim_cmp_as_default = false,
-      -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-      -- adjusts spacing to ensure icons are aligned
-      nerd_font_variant = "mono",
-    },
-    signature = {
-      enabled = true,
-      trigger = {
-        blocked_trigger_characters = {},
-        blocked_retrigger_characters = {},
-        -- When true, will show the signature help window when the cursor comes after a trigger character when entering insert mode
-        show_on_insert_on_trigger_character = true,
+      keymap = {
+        ["<Up>"] = { "select_prev", "fallback" },
+        ["<Down>"] = { "select_next", "fallback" },
+        ["<C-N>"] = {
+          "snippet_forward",
+        },
+        ["<C-P>"] = {
+          "snippet_backward",
+        },
+        ["<C-J>"] = { "select_next", "fallback" },
+        ["<C-K>"] = { "select_prev", "fallback" },
+        ["<C-U>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-D>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-E>"] = { "hide", "fallback" },
+        ["<CR>"] = { "fallback" },
+        ["<Tab>"] = {
+          function(cmp)
+            if cmp.is_visible() then
+              return cmp.accept()
+            elseif has_words_before() then
+              return cmp.show()
+            end
+          end,
+          "fallback",
+        },
+        ["<S-Tab>"] = {
+          function(cmp)
+            if cmp.is_visible() then return cmp.select_prev() end
+          end,
+          "fallback",
+        },
       },
-      window = {
-        border = "rounded",
-        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+      appearance = {
+        -- sets the fallback highlight groups to nvim-cmp's highlight groups
+        -- useful for when your theme doesn't support blink.cmp
+        -- will be removed in a future release, assuming themes add support
+        use_nvim_cmp_as_default = false,
+        -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- adjusts spacing to ensure icons are aligned
+        nerd_font_variant = "mono",
       },
-    },
+      signature = {
+        enabled = true,
+        trigger = {
+          blocked_trigger_characters = {},
+          blocked_retrigger_characters = {},
+          -- When true, will show the signature help window when the cursor comes after a trigger character when entering insert mode
+          show_on_insert_on_trigger_character = true,
+        },
+        window = {
+          border = "rounded",
+          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        },
+      },
       completion = {
         list = { selection = { preselect = true, auto_insert = false } },
         menu = {
@@ -187,10 +187,10 @@ return {
   end,
   specs = {
     -- disable built in completion plugins
-    { "hrsh7th/nvim-cmp", enabled = false },
-    { "petertriho/cmp-git", enabled = false },
-    { "L3MON4D3/LuaSnip", enabled = false },
-    { "onsails/lspkind.nvim", enabled = false },
+    { "hrsh7th/nvim-cmp", enabled = true },
+    { "petertriho/cmp-git", enabled = true },
+    { "L3MON4D3/LuaSnip", enabled = true },
+    { "onsails/lspkind.nvim", enabled = true },
     -- Override Avante's Blink integration to prevent provider conflicts
     {
       "yetone/avante.nvim",

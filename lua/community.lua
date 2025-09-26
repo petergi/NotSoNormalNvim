@@ -8,28 +8,20 @@
 return {
   "AstroNvim/astrocommunity",
 
-  { import = "astrocommunity.pack.lua" },
-  { import = "astrocommunity.pack.python" },
-  { import = "astrocommunity.pack.cs" },
   { import = "astrocommunity.pack.cpp" },
+  { import = "astrocommunity.pack.cs" },
   { import = "astrocommunity.pack.java" },
-  { import = "astrocommunity.pack.go" },
-  { import = "astrocommunity.pack.rust" },
-  { import = "astrocommunity.pack.typescript" },
+  { import = "astrocommunity.pack.swift" },
 
   { import = "astrocommunity.recipes.ai" },
   { import = "astrocommunity.recipes.neovide" },
   { import = "astrocommunity.recipes.astrolsp-no-insert-inlay-hints" },
 
   { import = "astrocommunity.completion.cmp-nvim-lua" },
-  { import = "astrocommunity.completion.cmp-git" },
-  { import = "astrocommunity.completion.cmp-git" },
-  -- { import = "astrocommunity.completion.copilot-cmp" },
-  { import = "astrocommunity.completion.mini-completion" },
 
   { import = "astrocommunity.debugging.nvim-dap-repl-highlights" },
 
-  { import = "astrocommunity.docker.lazydocker" },
+  -- { import = "astrocommunity.docker.lazydocker" },
 
   -- import/override with your plugins folder
   { import = "astrocommunity.editing-support.nvim-treesitter-context" },
@@ -41,4 +33,8 @@ return {
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
+
+  { import = "astrocommunity.indent.snacks-indent-hlchunk" },
+
+  { import = "astrocommunity.lsp.actions-preview-nvim" },
 }

@@ -1,4 +1,4 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 -- Disabled due to Blink configuration conflicts
 -- This plugin modifies Blink keymaps which conflicts with our main Blink configuration

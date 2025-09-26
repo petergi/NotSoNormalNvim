@@ -10,28 +10,40 @@ return {
   "AstroNvim/astrolsp",
   ---@type AstroLSPOpts
   opts = {
+    file_operations = {
+      timeout = 10000, -- default timeout in ms for completing LSP operations
+      operations = { -- enable all of the file operations
+        willCreate = true,
+        didCreate = true,
+        willRename = true,
+        didRename = true,
+        willDelete = true,
+        didDelete = true,
+      },
+    },
     -- Configuration table of features provided by AstroLSP
     features = {
       codelens = true, -- enable/disable codelens refresh on start
-      inlay_hints = false, -- enable/disable inlay hints on start
+      inlay_hints = true, -- enable/disable inlay hints on start
       semantic_tokens = true, -- enable/disable semantic token highlighting
+      signature_help = true, -- enable automatic signature help popup globally on startup
     },
     -- customize lsp formatting options
     formatting = {
       -- control auto formatting on save
       format_on_save = {
         enabled = true, -- enable or disable format on save globally
-        allow_filetypes = { -- enable format on save for specified filetypes only
-          -- "go",
-        },
-        ignore_filetypes = { -- disable format on save for specified filetypes
-          -- "python",
-        },
+        -- allow_filetypes = { -- enable format on save for specified filetypes only
+        -- "go",
+        -- },
+        -- ignore_filetypes = { -- disable format on save for specified filetypes
+        -- "python",
+        -- },
       },
-      disabled = { -- disable formatting capabilities for the listed language servers
-        -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
-        -- "lua_ls",
-      },
+      -- disabled = { -- disable formatting capabilities for the listed language servers
+      -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
+      -- "lua_ls",
+      -- },
       timeout_ms = 1000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
       --   return true

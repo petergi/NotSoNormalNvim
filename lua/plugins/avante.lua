@@ -23,7 +23,7 @@ return {
     provider = "copilot",
     auto_suggestions_provider = "claude",
     behaviour = {
-      auto_suggestions = false, -- Experimental stage
+      auto_suggestions = true, -- Experimental stage
     },
     file_selector = {
       provider = "fzf",

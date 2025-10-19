@@ -3,11 +3,16 @@ return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
+    config = function(_, opts)
+      require("snacks").setup(opts)
+      vim.ui.select = require("snacks").picker.select
+    end,
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
       input = { enabled = true },
       debug = { enabled = true },
+      picker = { enabled = true },
       indent = {
         enabled = true,
         filter = function(buf)

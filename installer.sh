@@ -3,7 +3,6 @@
 # NormalNvim installer.
 # Supports: Arch, Ubuntu, MacOS, Termux, Fedora, WSL
 
-
 # Detect OS
 IS_ARCH=$(if [ -f /etc/os-release ] && grep -q "NAME=\"Arch Linux\"" /etc/os-release; then echo "true"; else echo "false"; fi)
 IS_UBUNTU=$(if [ -f /etc/os-release ] && grep -q "NAME=\"Ubuntu\"" /etc/os-release; then echo "true"; else echo "false"; fi)
@@ -15,17 +14,14 @@ IS_FEDORA=$(if [ -f /etc/fedora-release ]; then echo "true"; else echo "false"; 
 IS_WSL=$(if grep -q Microsoft /proc/version; then echo "true"; else echo "false"; fi)
 IS_NIXOS=$(if [ -d /etc/nixos ] && [ -f /etc/os-release ] && grep -q "NAME=\"NixOS\"" /etc/os-release; then echo "true"; else echo "false"; fi)
 
-
-
-
 ## INSTALL NormalNvim
 ###############################################################################
 echo
-echo "Welcome to NormalNvim!"
+echo "Welcome to NotSoNormalNvim!"
 echo "=================================================================="
 echo "This installer will ask you for confirmation on every step before:"
 echo "=================================================================="
-echo "1) Cloning NormalNvim on '~/.config/nvim'."
+echo "1) Cloning NotSoNormalNvim on '~/.config/nvim'."
 echo "2) (optional) We will ask you to fork NormalNvim on GitHub, and provide your GitHub username so we can change git remote origin to your fork."
 echo "3) (optional) Install system dependencies, to unlock all features."
 echo "=================================================================="
@@ -33,7 +29,7 @@ echo
 echo
 echo
 echo
-echo "Step 1: Cloning NormalNvim on ~/.config/nvim"
+echo "Step 1: Cloning NotSoNormalNvim on ~/.config/nvim"
 echo "------------------------------------------------------------------"
 if [ -d ~/.config/nvim ]; then
   echo "ERROR: The directory ~/.config/nvim already exist."
@@ -41,7 +37,7 @@ if [ -d ~/.config/nvim ]; then
   exit 1
 fi
 echo "INFO: Installing NormalNvim in '~/.config/nvim'"
-git clone https://github.com/NormalNvim/NormalNvim.git ~/.config/nvim
+gh repo clone petergi/NotSoNormalNvime~/.config/nvim
 cd ~/.config/nvim || echo 2>&1
 echo "------------------------------------------------------------------"
 echo "SUCCESS: NormalNvim installed correctly"
@@ -52,9 +48,6 @@ echo
 echo
 echo
 echo
-
-
-
 
 ## DETECT REMOTE ORIGIN
 ###############################################################################
@@ -87,9 +80,6 @@ echo
 echo
 echo
 
-
-
-
 ## INSTALL DEPENDENCIES
 ###############################################################################
 echo "Step 3: Install system dependencies (optional)"
@@ -99,9 +89,6 @@ read -r answer
 answer_lowercase=$(echo "$answer" | tr '[:upper:]' '[:lower:]')
 if [ -z "$answer_lowercase" ] || [ "$answer_lowercase" = "y" ] || [ "$answer_lowercase" = "yes" ]; then
 
-
-
-
   ## ARCH INSTALLER (dependencies)
   #############################################################################
   if [ "$IS_ARCH" = "true" ]; then
@@ -109,55 +96,65 @@ if [ -z "$answer_lowercase" ] || [ "$answer_lowercase" = "y" ] || [ "$answer_low
 
     # DETECT AUR CLIENT
     # -----------------
-    if command -v paru > /dev/null 2>&1; then AUR_CMD="paru -S --needed";
-    elif command -v yay > /dev/null 2>&1; then AUR_CMD="yay -S --needed"; fi
+    if command -v paru >/dev/null 2>&1; then
+      AUR_CMD="paru -S --needed"
+    elif command -v yay >/dev/null 2>&1; then AUR_CMD="yay -S --needed"; fi
 
     # INSTALL DEPENDENCIES
     # --------------------
     if [ -n "$AUR_CMD" ]; then
-      eval "$AUR_CMD" "luarocks python" "yazi" "fd" "git-delta" "grcov" "rustup" "yarn" "python-pytest" "gcc" "binutils" "dotnet-runtime" "dotnet-sdk" "aspnet-runtime" "mono" "jdk-openjdk" "kotlin" "elixir" "npm" "nodejs" "typescript" "make" "go" "nasm" "r" "nuitka" "python" "ruby" "perl" "lua" "pyinstaller" "swift-bin" "flutter-bin" "gcc-fortran" "fortran-fpm-bin" "doxygen" "ldoc" "ruby-yard"; yarn global add "jest" "jsdoc" "typedoc"; cargo install "yazi-fm" "cargo-nextest"; go install "golang.org/x/tools/cmd/godoc@latest"
+      eval "$AUR_CMD" "luarocks python" "yazi" "fd" "git-delta" "grcov" "rustup" "yarn" "python-pytest" "gcc" "binutils" "dotnet-runtime" "dotnet-sdk" "aspnet-runtime" "mono" "jdk-openjdk" "kotlin" "elixir" "npm" "nodejs" "typescript" "make" "go" "nasm" "r" "nuitka" "python" "ruby" "perl" "lua" "pyinstaller" "swift-bin" "flutter-bin" "gcc-fortran" "fortran-fpm-bin" "doxygen" "ldoc" "ruby-yard"
+      yarn global add "jest" "jsdoc" "typedoc"
+      cargo install "yazi-fm" "cargo-nextest"
+      go install "golang.org/x/tools/cmd/godoc@latest"
     else
       echo "ERROR: You must have 'paru' or 'yay' installed so we can use the AUR."
     fi
-
-
-
 
   # UBUNTU INSTALLER (dependencies)
   #############################################################################
   elif [ "$IS_UBUNTU" = "true" ]; then
     echo "Ubuntu detected."
-    sudo apt update; sudo apt install --install-if-missing "luarocks" "yarn" "rust-fd-find" "python-pytest" "delta" "rust-grcov" "rustup" "gcc-defaults" "binutils" "dotnet8" "monodevelop" "java-common" "nasm" "r-base" "rustc" "golang" "python" "ruby" "perl" "lua5.3" "kotlin" "elixir" "make" "nodejs" "npm" "node-typescript" "nuitka" "doxygen" "yard"; pip install "pyinstaller"; yarn global add "jest" "jsdoc" "typedoc"; cargo install "yazi-fm"; go install "golang.org/x/tools/cmd/godoc@latest"; sudo snap install --classic "flutter"
-
-
-
+    sudo apt update
+    sudo apt install --install-if-missing "luarocks" "yarn" "rust-fd-find" "python-pytest" "delta" "rust-grcov" "rustup" "gcc-defaults" "binutils" "dotnet8" "monodevelop" "java-common" "nasm" "r-base" "rustc" "golang" "python" "ruby" "perl" "lua5.3" "kotlin" "elixir" "make" "nodejs" "npm" "node-typescript" "nuitka" "doxygen" "yard"
+    pip install "pyinstaller"
+    yarn global add "jest" "jsdoc" "typedoc"
+    cargo install "yazi-fm"
+    go install "golang.org/x/tools/cmd/godoc@latest"
+    sudo snap install --classic "flutter"
 
   # MACOS INSTALLER (dependencies)
   #############################################################################
   elif [ "$IS_MACOS" = "true" ]; then
     echo "MacOS detected."
-    brew install "luarocks" "fd" "git-delta" "rustup" "yarn" "gcc" "binutils" "dotnet" "mono" "openjdk" "dart-sdk" "kotlin" "elixir" "node" "typescript" "make" "rust" "go" "nasm" "r" "ruby" "perl" "lua" "swift" "pyinstaller" "doxygen"; brew install --cask "dotnet-sdk" "flutter"; pip install "pytest" "Nuitka"; yarn add global "jest" "jsdoc" "typedoc"; cargo install "yazi-fm" "cargo-nextest" "grcov"; go install "golang.org/x/tools/cmd/godoc@latest"
-
-
-
+    brew install "luarocks" "fd" "git-delta" "rustup" "yarn" "gcc" "binutils" "dotnet" "mono" "openjdk" "dart-sdk" "kotlin" "elixir" "node" "typescript" "make" "rust" "go" "nasm" "r" "ruby" "perl" "lua" "swift" "pyinstaller" "doxygen"
+    brew install --cask "dotnet-sdk" "flutter"
+    pip install "pytest" "Nuitka"
+    yarn add global "jest" "jsdoc" "typedoc"
+    cargo install "yazi-fm" "cargo-nextest" "grcov"
+    go install "golang.org/x/tools/cmd/godoc@latest"
 
   # TERMUX INSTALLER (dependencies)
   #############################################################################
   elif [ "$IS_TERMUX" = "true" ]; then
     echo "Termux detected."
-    pkg update; pkg install "tur-repo"; pkg install "luarocks" "yazi" "python" "fd" "git-delta" "yarn" "mono" "openjdk-17" "dart" "kotlin" "elixir" "nodejs" "make" "rust" "golang" "nasm" "python" "ruby" "perl" "liblua52" "swift" "gcc-default" "binutils-libs" "doxygen"; pip install "pytest" "Nuitka" "pyinstaller"; yarn add global "jest" "typescript" "jsdoc" "typedoc"; cargo install "cargo-nextest" "git-delta" "grcov"; go install "golang.org/x/tools/cmd/godoc@latest"
-
-
-
+    pkg update
+    pkg install "tur-repo"
+    pkg install "luarocks" "yazi" "python" "fd" "git-delta" "yarn" "mono" "openjdk-17" "dart" "kotlin" "elixir" "nodejs" "make" "rust" "golang" "nasm" "python" "ruby" "perl" "liblua52" "swift" "gcc-default" "binutils-libs" "doxygen"
+    pip install "pytest" "Nuitka" "pyinstaller"
+    yarn add global "jest" "typescript" "jsdoc" "typedoc"
+    cargo install "cargo-nextest" "git-delta" "grcov"
+    go install "golang.org/x/tools/cmd/godoc@latest"
 
   # FEDORA INSTALLER (dependencies)
   #############################################################################
   elif [ "$IS_FEDORA" = "true" ]; then
     echo "Fedora detected."
-    sudo dnf install "luarocks" "rust-fd-find" "rust-git-delta" "rustup" "python3-pytest" "gcc" "binutils" "dotnet6.0" "dotnet-runtime-6.0" "dotnet-sdk-6.0" "aspnetcore-runtime-6.0" "mono-complete" "java-21-openjdk" "elixir" "nodejs" "npm" "typescript" "make" "golang" "nasm" "R-rlang" "ruby" "perl" "lua" "swift-lang" "gcc-gfortran" "doxygen" "lua-ldoc" "rubygem-yard"; pip install "pytest" "Nuitka" "pyinstaller"; npm install -g "yarn" "jest" "typescript" "jsdoc" "typedoc"; cargo install "yazi-fm" "cargo-nextest" "grcov"; go install "golang.org/x/tools/cmd/godoc@latest"
-
-
-
+    sudo dnf install "luarocks" "rust-fd-find" "rust-git-delta" "rustup" "python3-pytest" "gcc" "binutils" "dotnet6.0" "dotnet-runtime-6.0" "dotnet-sdk-6.0" "aspnetcore-runtime-6.0" "mono-complete" "java-21-openjdk" "elixir" "nodejs" "npm" "typescript" "make" "golang" "nasm" "R-rlang" "ruby" "perl" "lua" "swift-lang" "gcc-gfortran" "doxygen" "lua-ldoc" "rubygem-yard"
+    pip install "pytest" "Nuitka" "pyinstaller"
+    npm install -g "yarn" "jest" "typescript" "jsdoc" "typedoc"
+    cargo install "yazi-fm" "cargo-nextest" "grcov"
+    go install "golang.org/x/tools/cmd/godoc@latest"
 
   # ERROR: OS NOT DETECTED
   #############################################################################
@@ -167,13 +164,7 @@ if [ -z "$answer_lowercase" ] || [ "$answer_lowercase" = "y" ] || [ "$answer_low
     echo "But you can still read the wiki and install the dependencies manually."
   fi
 
-
-
-
 fi # End of install dependencies
-
-
-
 
 # SUCCESS MESSAGE
 ###############################################################################

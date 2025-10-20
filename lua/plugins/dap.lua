@@ -58,8 +58,28 @@ end
 ---@type LazySpec
 return {
   {
+    "mfussenegger/nvim-dap",
+    lazy = true,
+    module = { "dap" },
+    cmd = {
+      "DapContinue",
+      "DapToggleBreakpoint",
+      "DapStepInto",
+      "DapStepOver",
+      "DapStepOut",
+      "DapTerminate",
+      "DapRestartFrame",
+      "DapRestart",
+      "DapToggleRepl",
+      "DapLoadLaunchJSON",
+      "DapRunToCursor",
+      "DapRunLast",
+    },
+  },
+  {
     "Weissle/persistent-breakpoints.nvim",
     event = "VeryLazy",
+    dependencies = { "mfussenegger/nvim-dap" },
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, {
         load_breakpoints_event = { "BufReadPost" },
@@ -69,6 +89,7 @@ return {
   {
     "theHamsta/nvim-dap-virtual-text",
     event = "VeryLazy",
+    dependencies = { "mfussenegger/nvim-dap" },
     opts = {
       commented = true,
       enabled = true,
@@ -99,6 +120,9 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap" },
+    module = { "dapui" },
+    cmd = { "DapUiOpen", "DapUiClose", "DapUiToggle" },
     specs = {
       {
         "AstroNvim/astrocore",

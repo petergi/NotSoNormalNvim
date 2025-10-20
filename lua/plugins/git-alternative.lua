@@ -30,4 +30,23 @@ return {
       enhanced_diff_hl = true,
     },
   },
+  {
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    event = "BufReadPost",
+    opts = {
+      default_mappings = false,
+      disable_diagnostics = true,
+    },
+    config = function(_, opts)
+      require("git-conflict").setup(opts)
+      local map = vim.keymap.set
+      map("n", "]x", "<cmd>GitConflictNextConflict<CR>", { desc = "Next conflict" })
+      map("n", "[x", "<cmd>GitConflictPrevConflict<CR>", { desc = "Previous conflict" })
+      map("n", "<Leader>gco", "<cmd>GitConflictChooseOurs<CR>", { desc = "Conflict choose ours" })
+      map("n", "<Leader>gct", "<cmd>GitConflictChooseTheirs<CR>", { desc = "Conflict choose theirs" })
+      map("n", "<Leader>gcb", "<cmd>GitConflictChooseBoth<CR>", { desc = "Conflict choose both" })
+      map("n", "<Leader>gc0", "<cmd>GitConflictChooseNone<CR>", { desc = "Conflict choose none" })
+    end,
+  },
 }

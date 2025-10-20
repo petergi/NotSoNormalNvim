@@ -1,6 +1,14 @@
 return {
   "stevearc/overseer.nvim",
-  event = "User AstroFile",
+  cmd = {
+    "OverseerQuickAction",
+    "OverseerTaskAction",
+    "OverseerToggle",
+    "OverseerRun",
+    "OverseerRunCmd",
+    "OverseerInfo",
+  },
+  module = { "overseer" },
   ---@param opts overseer.Config
   opts = function(_, opts)
     local window_scaling_factor = 0.3
@@ -8,7 +16,13 @@ return {
     local width = require("utils").size(vim.o.columns, window_scaling_factor)
     return vim.tbl_deep_extend("force", opts, {
       dap = false,
-      templates = { "builtin" },
+      templates = {
+        "builtin",
+        "user.node",
+        "user.go",
+        "user.python",
+        "user.rust",
+      },
       task_list = {
         width = width,
         height = height,
@@ -81,6 +95,22 @@ return {
         maps.n[prefix .. "q"] = { "<Cmd>OverseerQuickAction<CR>", desc = "Quick Action" }
         maps.n[prefix .. "a"] = { "<Cmd>OverseerTaskAction<CR>", desc = "Task Action" }
         maps.n[prefix .. "i"] = { "<Cmd>OverseerInfo<CR>", desc = "Overseer Info" }
+        maps.n[prefix .. "B"] = {
+          function()
+            local ok, overseer = pcall(require, "overseer")
+            if not ok then return end
+            overseer.run_template { tags = { overseer.TAG.BUILD }, first = true }
+          end,
+          desc = "Run build template",
+        }
+        maps.n[prefix .. "T"] = {
+          function()
+            local ok, overseer = pcall(require, "overseer")
+            if not ok then return end
+            overseer.run_template { tags = { overseer.TAG.TEST }, first = true }
+          end,
+          desc = "Run test template",
+        }
       end,
     },
   },

@@ -84,10 +84,7 @@ return {
           function() open "files" end,
           desc = "Find files (Root Dir)",
         }
-        maps.n["<Leader>fn"] = {
-          function() vim.cmd "Noice history" end,
-          desc = "Find notifications",
-        }
+        maps.n["<Leader>fn"] = { function() vim.cmd "messages" end, desc = "View :messages" }
         -- find
         maps.n["<Leader>fb"] = { "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffers" }
         maps.n["<Leader>fc"] = {

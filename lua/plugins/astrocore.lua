@@ -1,5 +1,19 @@
 -- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
+local function run_if_cmd(cmd, args, message)
+  return function()
+    if vim.fn.exists(":" .. cmd) == 2 then
+      if args and args ~= "" then
+        vim.cmd(cmd .. " " .. args)
+      else
+        vim.cmd(cmd)
+      end
+    else
+      vim.notify(message or ("Command :" .. cmd .. " is not available"), vim.log.levels.WARN)
+    end
+  end
+end
+
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -79,6 +93,29 @@ return {
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+        ["<Leader>A"] = { desc = "AI" },
+        ["<Leader>Ac"] = { run_if_cmd("ClaudeCode", "", "Claude Code is disabled"), desc = "Toggle Claude Code" },
+        ["<Leader>Ap"] = { run_if_cmd("Copilot", "panel", "Copilot panel unavailable"), desc = "Copilot panel" },
+        ["<Leader>Aq"] = { run_if_cmd("AmazonQ", "", "Amazon Q is disabled"), desc = "Amazon Q chat" },
+        ["<Leader>AcC"] = {
+          run_if_cmd("ClaudeCodeContinue", "", "Claude continue unavailable"),
+          desc = "Claude continue",
+        },
+        ["<Leader>AcV"] = {
+          run_if_cmd("ClaudeCodeVerbose", "", "Claude verbose unavailable"),
+          desc = "Claude verbose",
+        },
+        ["<Leader>Aa"] = {
+          function()
+            local accept = vim.g.ai_accept
+            if type(accept) == "function" and accept() then return end
+            vim.notify("No AI suggestion available", vim.log.levels.INFO)
+          end,
+          desc = "Accept AI suggestion",
+        },
+      },
+      v = {
+        ["<Leader>Aq"] = { ":<C-u>AmazonQ<CR>", desc = "Amazon Q from selection" },
       },
     },
   },

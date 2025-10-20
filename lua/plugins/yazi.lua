@@ -1,3 +1,7 @@
+-- selene: allow(mixed_table, undefined_variable)
+---@diagnostic disable: undefined-global
+-- selene: globals vim
+
 ---@type LazySpec
 return {
   "mikavilpas/yazi.nvim",

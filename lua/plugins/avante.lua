@@ -25,6 +25,9 @@ return {
     behaviour = {
       auto_suggestions = true, -- Experimental stage
     },
+    windows = {
+      winfixbuf = false,
+    },
     file_selector = {
       provider = "fzf",
       provider_opts = {},

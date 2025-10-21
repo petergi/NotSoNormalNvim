@@ -22,6 +22,16 @@ end
 ---@type LazySpec
 return {
   "AstroNvim/astrocore",
+  init = function()
+    local ok, fix = pcall(require, "utils.astrocore_buffer_fix")
+    if not ok then return end
+    fix.ensure()
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "VeryLazy",
+      callback = function() fix.ensure() end,
+      desc = "Ensure astrocore buffer exec patch is applied",
+    })
+  end,
   ---@type AstroCoreOpts
   opts = {
     -- Configure core features of AstroNvim

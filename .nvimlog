@@ -1,0 +1,5 @@
+WRN 2025-10-20T20:15:03.649 ?.11552    server_start:193: Failed to start server: operation not permitted: /var/folders/0c/0n8scpdj517fsm84zkzgcm2h0000gn/T/nvim.petergiannopoulos/HAtNqi/nvim.11552.0
+WRN 2025-10-20T20:15:12.827 ?.11882    server_start:193: Failed to start server: operation not permitted: /var/folders/0c/0n8scpdj517fsm84zkzgcm2h0000gn/T/nvim.petergiannopoulos/VcDiul/nvim.11882.0
+WRN 2025-10-20T20:15:15.765 ?.12209    server_start:193: Failed to start server: operation not permitted: /var/folders/0c/0n8scpdj517fsm84zkzgcm2h0000gn/T/nvim.petergiannopoulos/8UhyWG/nvim.12209.0
+WRN 2025-10-20T20:17:15.806 ?.15453    server_start:193: Failed to start server: operation not permitted: /var/folders/0c/0n8scpdj517fsm84zkzgcm2h0000gn/T/nvim.petergiannopoulos/2WQBI5/nvim.15453.0
+WRN 2025-10-20T20:19:59.467 ?.17646    server_start:193: Failed to start server: operation not permitted: /var/folders/0c/0n8scpdj517fsm84zkzgcm2h0000gn/T/nvim.petergiannopoulos/jZC4XK/nvim.17646.0

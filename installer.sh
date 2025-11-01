@@ -37,8 +37,8 @@ if [ -d ~/.config/nvim ]; then
   exit 1
 fi
 echo "INFO: Installing NormalNvim in '~/.config/nvim'"
-gh repo clone petergi/NotSoNormalNvime~/.config/nvim
-cd ~/.config/nvim || echo 2>&1
+gh repo clone petergi/NotSoNormalNvim ~/.config/nvim
+cd ~/.config/nvim || exit 1
 echo "------------------------------------------------------------------"
 echo "SUCCESS: NormalNvim installed correctly"
 echo "------------------------------------------------------------------"
@@ -64,15 +64,15 @@ read -r github_username
 # Check if the username is not empty
 if [ -n "$github_username" ]; then
   # Change the remote URL
-  git remote set-url origin "git://github.com/$github_username/NormalNvim.git"
+  git remote set-url origin "git://github.com/$github_username/NotSoNormalNvim.git"
   echo "------------------------------------------------------------------"
   echo "SUCCESS: GitHub username provided. You will get updates from:"
-  echo "         git://github.com/$github_username/NormalNvim.git"
+  echo "         git://github.com/$github_username/NotSoNormalNvim.git"
   echo "------------------------------------------------------------------"
 else
   echo "------------------------------------------------------------------"
   echo "SKIPPED: No GitHub username provided. You will get updates from:"
-  echo "         git://github.com/NormalNvim/NormalNvim.git"
+  echo "         git://github.com/petergi/NotSoNormalNvim.git"
   echo "------------------------------------------------------------------"
 fi
 echo

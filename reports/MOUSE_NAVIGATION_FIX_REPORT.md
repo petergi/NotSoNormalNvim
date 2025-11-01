@@ -76,8 +76,8 @@ middle_mouse_command = nil,
 - Maintains compatibility with existing keybindings
 
 ## Files Modified
-1. `/Users/petergiannopoulos/.config/nvim/lua/plugins/astrocore.lua`
-2. `/Users/petergiannopoulos/.config/nvim/lua/plugins/bufferline.lua`
+1. `nvim/lua/plugins/astrocore.lua`
+2. `nvim/lua/plugins/bufferline.lua`
 
 ## Verification
 - [x] Mouse support enabled (`mouse = "a"`)

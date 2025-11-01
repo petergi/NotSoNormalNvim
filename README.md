@@ -1,109 +1,328 @@
-**Important** : You need Neovim 0.10+
+# NotSoNormalNvim: My AstroNvim Configuration
 
-So this is my hatchet job on what is NormalNvim. I like NormalNvim. It's good the way it is. But I have my own idiosyncratic ways, so hack, hack, chop, slap, hack...
+**Important**: You need Neovim 0.10+
 
-
-
-<!--<div align="center">
-  <img src="https://github.com/NormalNvim/NormalNvim/assets/3357792/76197752-0947-4392-a6bd-a59d64319028"></img>
-  <h1><a href="https://github.com/NormalNvim/NormalNvim">NormalNvim</a></h1>
-  <h3>*✨ ~ ⭐ - A normal Neovim distribution - ⭐ ~ ✨*</h3>
-  <a href="https://discord.gg/ymcMaSnq7d" rel="nofollow">
-      <img src="https://img.shields.io/discord/1121138836525813760?color=azure&labelColor=6DC2A4&logo=discord&logoColor=black&label=Join the discord server&style=for-the-badge" data-canonical-src="https://img.shields.io/discord/1121138836525813760">
-    </a>
-</div> -->
+This is my personal Neovim distribution based on [AstroNvim](https://github.com/AstroNvim/AstroNvim). It's been heavily customized to fit my workflow and aesthetic preferences.
 
 ---
 
+## Table of Contents
+
 - [Screenshots](#screenshots)
-- [How to install](#how-to-install)
-- [Distro features](#distro-features)
-- [Philosophy and design decisions](#philosophy-and-design-decisions)
-- [Commands](#commands)
-- [Wiki](https://github.com/NormalNvim/NormalNvim/wiki)
-- [FAQ](#faq)
+- [Overview](#overview)
+- [Installation](#installation)
+- [Key Features](#key-features)
+- [AI Integrations](#ai-integrations)
+- [Language Support](#language-support)
+- [Core Plugins](#core-plugins)
+- [Keybindings](#keybindings)
 
 ## Screenshots
 
-Tokyo Night (Night) theme by default
-![screenshot_2024-10-04_23-22-02_932273168](https://github.com/user-attachments/assets/9191cf69-6fe2-4cde-ad43-d63d1469a681)
+### Main Editor View
+![Main Editor](assets/screenshots/main-editor.png)
+*NotSoNormalNvim with AstroDark theme, Lualine statusline, and Bufferline*
 
-The space key shows [all you can do](https://github.com/NormalNvim/NormalNvim/wiki/basic-mappings)
-![screenshot_2024-03-12_22-48-45_446272370](https://github.com/NormalNvim/NormalNvim/assets/3357792/1fb4a576-e04f-481b-9692-67cdcc071d13)
+### Claude Code Integration
+![Claude Code](assets/screenshots/claude-code.png)
+*Claude Code terminal split showing AI-assisted coding workflow*
 
-If you are new here don't forget to [check the wiki](https://github.com/NormalNvim/NormalNvim/wiki).
+### AI Tools Menu
+![AI Tools](assets/screenshots/ai-menu.png)
+*Which-key showing available AI integrations under `<Leader>A`*
 
-## How to install
+### Completion with Blink.cmp
+![Completion](assets/screenshots/completion.png)
+*Blazing fast completions with Blink.cmp and LSP integration*
 
-### Installer (Linux/MacOS/WSL)
-You can preview it [here](https://github.com/NormalNvim/installer)
+### Neo-tree File Explorer
+![Neo-tree](assets/screenshots/neo-tree.png)
+*Neo-tree file explorer with custom file creation templates*
+
+### Overseer Task Runner
+![Overseer](assets/screenshots/overseer.png)
+*Overseer task list showing build and test tasks*
+
+### Debugging with DAP
+![DAP Debugging](assets/screenshots/dap-debug.png)
+*nvim-dap debugger in action with breakpoints and variables*
+
+### Trouble Diagnostics
+![Trouble](assets/screenshots/trouble.png)
+*Trouble showing project-wide diagnostics and errors*
+
+## Overview
+
+This configuration is built on top of AstroNvim, using Lazy.nvim for plugin management. It's designed for full-stack development with extensive language support and multiple AI coding assistants.
+
+## Installation
+
+### Prerequisites
+- Neovim 0.10 or later
+- Git
+- A Nerd Font (for icons)
+- `yazi` file manager (optional, will use neo-tree if not available)
+- `trash` command (for neo-tree trash functionality)
+
+### Clone
 ```sh
-wget -q https://raw.githubusercontent.com/NormalNvim/installer/main/installer.sh && chmod +x installer.sh && ./installer.sh
+# Backup your existing config
+mv ~/.config/nvim ~/.config/nvim.backup
+
+# Clone this repository
+git clone <your-fork-url> ~/.config/nvim
+
+# Start Neovim - plugins will install automatically
+nvim
 ```
 
-### Clone manually (Linux/MacOS/WSL)
-```sh
-# Strongly recommended: Fork the repo and clone YOUR fork.
-git clone https://github.com/NormalNvim/NormalNvim.git ~/.config/nvim
+## Key Features
+
+### Plugin Management
+- **Lazy.nvim**: Fast, modern plugin manager
+- **AstroNvim**: Provides the base configuration framework
+- **AstroCommunity**: Pre-configured language packs and recipes
+
+### UI & Interface
+- **Status Line**: Lualine (replaces default Heirline)
+- **File Explorer**: Neo-tree with custom file creation templates
+  - Go: Auto-adds package declaration
+  - Rust: Interactive module attachment to lib.rs/main.rs/mod.rs
+  - Proto: Auto-adds syntax and validation imports
+- **Bufferline**: Enhanced buffer tab line
+- **Dropbar**: Winbar with code context
+- **Colorscheme**: AstroDark (default)
+
+### Editing Enhancements
+- **Completion**: Blink.cmp for blazing fast completions
+- **Snippets**: LuaSnip with custom snippets
+- **Auto-save**: Automatic file saving
+- **Surround**: nvim-surround for manipulating surrounding pairs
+- **Multi-cursor**: vim-visual-multi for multiple cursors
+- **Flash**: Fast navigation and search
+- **Auto-pairs**: Ultimate-autopair for intelligent bracket pairing
+- **Refactoring**: The Primeagen's refactoring.nvim
+- **Rainbow Delimiters**: Colorized matching brackets
+- **True Zen**: Distraction-free editing
+
+### Code Intelligence
+- **LSP**: Full Language Server Protocol support via AstroLSP
+- **Treesitter**: Advanced syntax highlighting and code understanding
+- **Formatting**: Conform.nvim for code formatting
+- **Linting**: nvim-lint for diagnostics
+- **null-ls**: Additional formatting and diagnostics
+
+### Development Tools
+- **Debugger**: nvim-dap with full DAP support
+- **Testing**: Neotest for running tests
+- **Task Runner**: Overseer for build and test tasks
+  - Custom templates for Node, Go, Python, Rust
+- **Git**:
+  - Gitsigns for inline git status
+  - Diffview for viewing diffs
+  - Git-blame inline blame
+- **Session Management**: Resession for saving/restoring sessions
+
+### Search & Navigation
+- **Telescope**: Fuzzy finder (via AstroNvim)
+- **FZF**: Alternative fuzzy finder integration
+- **Grug-far**: Advanced search and replace
+- **Trouble**: Better diagnostics list
+
+## AI Integrations
+
+This config includes multiple AI coding assistants:
+
+### Claude Code
+- **Plugin**: claude-code.nvim
+- **Toggle**: `<C-,>` (normal/terminal mode)
+- **Commands**:
+  - `:ClaudeCode` - Open Claude Code terminal
+  - `:ClaudeCodeContinue` - Resume most recent conversation
+  - `:ClaudeCodeResume` - Show conversation picker
+  - `:ClaudeCodeVerbose` - Enable verbose logging
+- **Keybindings**:
+  - `<leader>cl` - Toggle Claude Code
+  - `<leader>cr` - Resume conversation
+  - `<leader>cv` - Verbose mode
+- **Location**: `lua/plugins/claude.lua`
+
+### Avante
+- **Plugin**: avante.nvim
+- **Provider**: Copilot (with Claude for auto-suggestions)
+- **Prefix**: `<Leader>P`
+- **Key Features**:
+  - AI-powered code generation
+  - Multi-file context awareness
+  - FZF file selector integration
+- **Location**: `lua/plugins/avante.lua`
+
+### GitHub Copilot
+- **Plugin**: copilot.lua
+- **Accept**: `<C-;>`
+- **Next**: `<M-]>`
+- **Previous**: `<M-[>`
+- **Dismiss**: `<C-]>`
+- **Panel**: `<Leader>Ap`
+- **Location**: `lua/plugins/copilot.lua`
+
+### Amazon Q
+- **Plugin**: amazonq.nvim
+- **Toggle**: `<Leader>Aq`
+- **Visual Mode**: `<Leader>Aq` (from selection)
+- **Location**: `lua/plugins/amazonq.lua`
+
+### Codex
+- **Plugin**: codex.nvim
+- **Custom status line integration**
+- **Location**: `lua/plugins/codex.lua`
+
+### AI Keybindings Summary
+All AI tools are under `<Leader>A`:
+- `<Leader>Ac` - Toggle Claude Code
+- `<Leader>Ap` - Copilot panel
+- `<Leader>Aq` - Amazon Q chat
+- `<Leader>AcC` - Claude continue
+- `<Leader>AcV` - Claude verbose
+- `<Leader>Aa` - Accept AI suggestion
+
+## Language Support
+
+### Built-in Language Packs
+Custom language configurations in `lua/plugins/pack-*.lua`:
+
+- **Web Development**: Angular, TypeScript, JavaScript, HTML/CSS, Vue, Tailwind CSS
+- **Backend**: Go, Python, Rust
+- **Data**: JSON, YAML, TOML, XML, GraphQL
+- **Systems**: Bash, Lua, Docker
+- **Databases**: SQL, Prisma
+- **Other**: Markdown, Thrift, Protocol Buffers
+
+### AstroCommunity Packs
+From `lua/community.lua`:
+- C++ (`astrocommunity.pack.cpp`)
+- C# (`astrocommunity.pack.cs`)
+- Java (`astrocommunity.pack.java`)
+- Swift (`astrocommunity.pack.swift`)
+
+### LSP Features
+- Mason for automatic LSP server installation
+- Auto-completion with Blink.cmp
+- Inline diagnostics
+- Code actions
+- Hover documentation
+- Go-to-definition, references, implementations
+- Formatting on save (via Conform)
+
+## Core Plugins
+
+### Essential Plugins
+- **astrocore**: Core AstroNvim functionality and keybindings
+- **astroui**: UI components and theming
+- **astrolsp**: LSP configuration wrapper
+- **mason.nvim**: LSP/DAP/Linter installer
+
+### Notable Additions
+- **snacks.nvim**: Collection of useful utilities
+- **sleuth**: Auto-detect indentation
+- **nvim-treesitter-context**: Show code context
+- **nvim-regexplainer**: Explain regex patterns
+- **todo-comments**: Highlight TODO/FIXME/etc
+- **which-key**: Keybinding hints
+- **live-server**: HTML live preview
+- **molten**: Jupyter notebook integration
+- **nvim-highlight-colors**: Color code highlighting
+- **helpview**: Better help documentation
+
+### UI Components
+- **Lualine**: Status line with custom components:
+  - Mode, branch, diagnostics
+  - Root directory, file path
+  - Codex status
+  - DAP status
+  - Lazy updates
+  - Git diff
+  - LSP progress (Fidget)
+  - Overseer tasks
+  - Snacks profiler
+  - Time display
+
+## Keybindings
+
+### Leaders
+- **Leader**: `<Space>`
+- **Local Leader**: `,`
+
+### Buffer Navigation
+- `]b` - Next buffer
+- `[b` - Previous buffer
+- `<Leader>bd` - Close buffer (with picker)
+
+### AI Tools
+See [AI Integrations](#ai-integrations) section
+
+### Overseer (Task Runner)
+Prefix: `<Leader>m`
+- `<Leader>mt` - Toggle Overseer
+- `<Leader>mc` - Run command
+- `<Leader>mr` - Run task
+- `<Leader>mq` - Quick action
+- `<Leader>ma` - Task action
+- `<Leader>mi` - Overseer info
+- `<Leader>mB` - Run build template
+- `<Leader>mT` - Run test template
+
+### Other
+- See `:help astronvim` for default AstroNvim keybindings
+- Press `<Space>` to see all available keybindings via which-key
+
+## Configuration Structure
+
+```
+~/.config/nvim/
+├── init.lua                    # Bootstrap lazy.nvim
+├── lua/
+│   ├── lazy_setup.lua         # Lazy.nvim configuration
+│   ├── polish.lua             # Final polish/tweaks
+│   ├── community.lua          # AstroCommunity imports
+│   ├── plugins/               # Plugin configurations
+│   │   ├── astrocore.lua     # Core settings & keymaps
+│   │   ├── astroui.lua       # UI settings
+│   │   ├── astrolsp.lua      # LSP configuration
+│   │   ├── pack-*.lua        # Language packs
+│   │   └── ...               # Other plugin configs
+│   ├── utils/                 # Utility functions
+│   └── overseer/template/user/ # Custom Overseer templates
+└── README.md                  # This file
 ```
 
-### Clone manually (Windows)
-```sh
-# Strongly recommended: Fork the repo and clone YOUR fork.
-git clone https://github.com/NormalNvim/NormalNvim.git %USERPROFILE%\AppData\Local\nvim && nvim
+## Notes
+
+- This config disables Heirline in favor of Lualine
+- Auto-save is enabled by default
+- Diagnostics show as virtual text
+- Git root is used as CWD when opening Claude Code
+- Session management via Resession
+- File refresh is enabled (100ms updatetime when Claude Code active)
+
+## Maintenance
+
+### Update Plugins
+```vim
+:Lazy update
 ```
 
-### Optional dependencies
-This is only necessary if you installed NormalNvim by cloning manually. [To unlock all features you will have to install the dependencies](https://github.com/NormalNvim/NormalNvim/wiki/dependencies).
-
-## Distro features
-
-* ⚡ **Lazy:** Plugins are loaded lazily, providing super fast performance.
-* 🔋 **Batteries included:** Most [plugins](https://github.com/NormalNvim/NormalNvim/wiki/plugins) you will ever need are included and debugged by default. Get the best user experience out of the box and forget about nasty bugs in your Neovim config.
-* 😎 **Plugins are self-contained:** Allowing you to easily delete what you need.
-* 🤖 **IDE tools:** We ship [Compiler.nvim](https://github.com/Zeioth/compiler.nvim) (compiler), [DAP](https://github.com/mfussenegger/nvim-dap) (debugger), [Neotest](https://github.com/nvim-neotest/neotest) (test runner), and [Dooku.nvim](https://github.com/Zeioth/dooku.nvim) (docs generator)
-* 🐞 **IDE parsers:** Linters, Formatters, LSP, Treesitter... preinstalled, preconfigured and ready to code for the top 12 most popular programming languages.
-* 🥶 **Plugin version freeze:** You can choose "stable" or "nightly" update channels. Or if you prefer, use :DistroFreezePluginVersions to create your own stable versions!
-* 🔙 **Rollbacks:** You can easily recover from a nvim distro update using :DistroUpdateRevert
-* 🔥 **Hot reload:** Every time you change something in your config, the changes are reflected on nvim on real time without need to restart.
-* 📱 **Phone friendly:** You can also install it on Android Termux. Did you ever have a compiler in your pocket? 😉
-* ⌨️ **Alternative mappings:** By default the distro uses qwerty, but colemak-dh can be found [here](https://github.com/NormalNvim/NormalNvim/wiki).
-* ✨ **Fully modular:** Every feature is a small plugin.
-* 👽 **100% agnostic:** Any plugin NormalNvim ship, can be used in any distro.
-
-
-## Philosophy and design decisions
-__You are expected to fork the project before cloning it. So you are the only one in control. It is also recommended to use [neovim's appimage](https://github.com/neovim/neovim/releases).__
-
-> This is not a distro you are expected to update often from upstream. It is meant to be used as a base to create your own distro.
-
-[NormalNvim](https://github.com/NormalNvim/NormalNvim) won't be the next [/r/UnixPorn](https://www.reddit.com/r/unixporn/) sensation. It is a normal nvim config you can trust 100% will never unexpectedly break while you are working. Nothing flashy. Nothing brightful. Just bread and butter.
-
-## Commands
-The next relevant commands are provided by [distroupdate.nvim](https://github.com/Zeioth/distroupdate.nvim)
-
-|  Command            | Description                             |
-|---------------------|-----------------------------------------|
-| **:DistroUpdate** | To update the distro from git origin. Local uncommited changes will be lost. |
-| **:DistroUpdateRevert** | To revert the last `:DistroUpdate`. |
-| **:DistroFreezePluginVersions** | To save your current plugins versions into `lazy_versions.lua`. |
-
-## FAQ
-
-* **NormalNvim is not working. How can I know why?**
-
-    `:checkhealth base`
-
-* **Why can't I see the icons?** You must install the [nerdfont version of your font](https://www.nerdfonts.com/), and use it on your terminal. Alternatively you can edit `base/icons/nerd_font.lua` to manually specify your own icons.
-
-* **How can I install a new colorscheme?** Go to `plugins/2-ui.lua`, and add the theme you want. Re-open nvim and now you can set your new colorcheme on `base/1-options.lua`. You can also preview all your installed themes with `<space>+ft`.
-
-* **How can I change the user interface?** We use the plugin heirline to create the user interface. You can re-order or change any component of your user interface in `plugins/2-ui.lua`. If you preffer the classic vim appearance, you can delete the plugin.
-
-* **How can I disable the animations?** You can delete the plugin [mini.animate](https://github.com/echasnovski/mini.animate). In case you only want to disable some animations look into the plugin docs.
-
-* **How can I use `Ask chatgpt`?** On your operating system, set the next env var. You can get an API key from [chatgpt's website](https://platform.openai.com/account/api-keys).
-
-```sh
-OPENAI_API_KEY="my_key_here"
+### Check Health
+```vim
+:checkhealth
 ```
+
+### Mason (Install LSP/DAP/Linters)
+```vim
+:Mason
+```
+
+## Credits
+
+- Based on [AstroNvim](https://github.com/AstroNvim/AstroNvim)
+- Inspired by NormalNvim (original base before heavy modifications)

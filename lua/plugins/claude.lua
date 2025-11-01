@@ -4,6 +4,12 @@ return {
   "greggh/claude-code.nvim",
   enabled = has_ui,
   cmd = { "ClaudeCode", "ClaudeCodeContinue", "ClaudeCodeResume", "ClaudeCodeVerbose" },
+  keys = {
+    { "<C-,>", mode = { "n", "t" } },
+    { "<leader>cl", mode = "n", desc = "Toggle Claude Code" },
+    { "<leader>cr", mode = "n", desc = "Toggle Claude Code - Resume" },
+    { "<leader>cv", mode = "n", desc = "Toggle Claude Code - Verbose" },
+  },
   dependencies = {
     "nvim-lua/plenary.nvim", -- Required for git operations
   },

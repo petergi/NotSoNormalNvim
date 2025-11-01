@@ -7,7 +7,7 @@ return {
     enabled = has_ui,
     cmd = "AmazonQ",
     keys = {
-      { "<leader>cq", "<cmd>AmazonQ<CR>", desc = "Toggle Amazon Q", mode = "n" },
+      { "<leader>ca", "<cmd>AmazonQ<CR>", desc = "Toggle Amazon Q", mode = "n" },
     },
     config = function(_, opts)
       require("amazonq").setup(opts)

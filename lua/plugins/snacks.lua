@@ -113,7 +113,13 @@ return {
     opts = function(_, opts) opts.statuscolumn = false end,
   },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
-  { "rcarriga/nvim-notify", enabled = false },
+  { "rcarriga/nvim-notify", enabled = true },
   { "NMAC427/guess-indent.nvim", enabled = false },
-  { "akinsho/toggleterm.nvim", enabled = true },
+  -- { "akinsho/toggleterm.nvim", enabled = true },
+  {
+    "nvzone/floaterm",
+    dependencies = "nvzone/volt",
+    opts = {},
+    cmd = "FloatermToggle",
+  },
 }

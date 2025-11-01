@@ -51,6 +51,7 @@ return {
             },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { require("utils.lualine").pretty_path() },
+            require("codex").status(), -- Codex status component
           },
           lualine_x = {
             require("snacks").profiler.status(),
@@ -66,7 +67,7 @@ return {
                 local status = statusline.progress()
                 return status ~= nil and status ~= ""
               end,
-              color = function() return { fg = require("snacks").util.color("Identifier") } end,
+              color = function() return { fg = require("snacks").util.color "Identifier" } end,
             },
             -- stylua: ignore
             {

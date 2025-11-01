@@ -12,11 +12,11 @@ return {
       toggle = {
         normal = "<C-,>",
         terminal = "<C-,>",
-      },
-      variants = {
-        continue = "<leader>cl",
-        resume = "<leader>cr",
-        verbose = "<leader>cv",
+        variants = {
+          continue = "<leader>cl",
+          resume = "<leader>cr",
+          verbose = "<leader>cv",
+        },
       },
       window_navigation = true,
       scrolling = true,

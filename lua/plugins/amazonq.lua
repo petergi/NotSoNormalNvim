@@ -6,6 +6,9 @@ return {
     url = "https://github.com/awslabs/amazonq.nvim.git",
     enabled = has_ui,
     cmd = "AmazonQ",
+    keys = {
+      { "<leader>cq", "<cmd>AmazonQ<CR>", desc = "Toggle Amazon Q", mode = "n" },
+    },
     config = function(_, opts)
       require("amazonq").setup(opts)
       pcall(vim.keymap.del, "n", "zq")

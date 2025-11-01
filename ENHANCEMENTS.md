@@ -22,8 +22,14 @@ This document captures the improvements applied on the `feature/neovim-enhanceme
 ## AI Integrations
 - Standardized Copilot, Amazon Q, and Claude Code:
   - Conditional loading when a UI is available (`lua/plugins/copilot.lua`, `amazonq.lua`, `claude.lua`).
-  - Shared `<leader>A…` key family for launching providers or accepting suggestions (`lua/plugins/astrocore.lua:96`), plus a guarded handler that falls back gracefully in headless sessions.
-  - Amazon Q’s hard-coded `zq` mappings are removed during setup to avoid key conflicts (`lua/plugins/amazonq.lua:7`).
+  - Amazon Q's hard-coded `zq` mappings are removed during setup to avoid key conflicts (`lua/plugins/amazonq.lua:14`).
+  - **Claude Code keybindings**:
+    - `<C-,>` - Toggle in normal/terminal mode (lazy-loaded via `keys` option)
+    - `<leader>cl` - Continue recent conversation
+    - `<leader>cr` - Resume with conversation picker
+    - `<leader>cv` - Verbose mode
+  - **Amazon Q keybindings**:
+    - `<leader>cq` - Toggle Amazon Q (lazy-loaded via `keys` option)
 
 ## Follow-up
 - Run `:Lazy sync` (or `nvim --headless "+Lazy! sync" +qa`) to install new plugins such as Fidget and Git Conflict.

@@ -142,8 +142,9 @@ This config includes multiple AI coding assistants:
   - `:ClaudeCodeResume` - Show conversation picker
   - `:ClaudeCodeVerbose` - Enable verbose logging
 - **Keybindings**:
-  - `<leader>cl` - Toggle Claude Code
-  - `<leader>cr` - Resume conversation
+  - `<C-,>` - Toggle Claude Code (normal/terminal mode)
+  - `<leader>cl` - Continue recent conversation
+  - `<leader>cr` - Resume with conversation picker
   - `<leader>cv` - Verbose mode
 - **Location**: `lua/plugins/claude.lua`
 
@@ -168,8 +169,8 @@ This config includes multiple AI coding assistants:
 
 ### Amazon Q
 - **Plugin**: amazonq.nvim
-- **Toggle**: `<Leader>Aq`
-- **Visual Mode**: `<Leader>Aq` (from selection)
+- **Toggle**: `<leader>cq`
+- **Visual Mode**: Select text and use `:AmazonQ`
 - **Location**: `lua/plugins/amazonq.lua`
 
 ### Codex
@@ -178,13 +179,16 @@ This config includes multiple AI coding assistants:
 - **Location**: `lua/plugins/codex.lua`
 
 ### AI Keybindings Summary
-All AI tools are under `<Leader>A`:
-- `<Leader>Ac` - Toggle Claude Code
-- `<Leader>Ap` - Copilot panel
-- `<Leader>Aq` - Amazon Q chat
-- `<Leader>AcC` - Claude continue
-- `<Leader>AcV` - Claude verbose
-- `<Leader>Aa` - Accept AI suggestion
+- **Claude Code**:
+  - `<C-,>` - Toggle Claude Code
+  - `<leader>cl` - Continue conversation
+  - `<leader>cr` - Resume picker
+  - `<leader>cv` - Verbose mode
+- **Amazon Q**: `<leader>cq` - Toggle Amazon Q
+- **Copilot**:
+  - `<C-;>` - Accept suggestion
+  - `<Leader>Ap` - Open panel
+- **Avante**: `<Leader>P` prefix for AI commands
 
 ## Language Support
 

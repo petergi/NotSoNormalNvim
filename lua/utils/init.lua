@@ -321,23 +321,23 @@ function M.get_filename_without_extension(filepath)
 end
 
 -- Function to get the current working directory relative to the given file path
--- current cwd: /Users/jayce.zhao/.config/nvim/
--- current file_path: /Users/jayce.zhao/.config/nvim/lua/plugins/visual-multi.lua
+-- current cwd: ~/.config/nvim/
+-- current file_path: ~/.config/nvim/lua/plugins/visual-multi.lua
 -- return lua/plugins/visual-multi.lua
 -- @param file_path: The full path of the file
 -- @return: The current working directory relative to the file path
 function M.get_cwd(file_path) return vim.fn.fnamemodify(file_path, ":.") end
 
 -- Function to get the file path relative to the home directory
--- input: /Users/jayce.zhao/.config/nvim/lua/plugins/visual-multi.lua
+-- input: ~/.config/nvim/lua/plugins/visual-multi.lua
 -- output: ~/.config/nvim/lua/plugins/visual-multi.lua
 -- @param file_path: The full path of the file
 -- @return: The file path relative to the home directory
 function M.get_home(file_path) return vim.fn.fnamemodify(file_path, ":~") end
 
 -- Function to get the URI from a file path
--- input: /Users/jayce.zhao/.config/nvim/lua/plugins/visual-multi.lua
--- output: file:///Users/jayce.zhao/.config/nvim/lua/plugins/visual-multi.lua
+-- input: ~/.config/nvim/lua/plugins/visual-multi.lua
+-- output: file:///home/user/.config/nvim/lua/plugins/visual-multi.lua
 -- @param file_path: The full path of the file
 -- @return: The URI corresponding to the file path
 function M.get_uri(file_path) return vim.uri_from_fname(file_path) end

@@ -104,7 +104,8 @@ return {
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
         ["<Leader>A"] = { desc = "AI" },
-        ["<Leader>Ac"] = { run_if_cmd("ClaudeCode", "", "Claude Code is disabled"), desc = "Toggle Claude Code" },
+        ["<Leader>Al"] = { run_if_cmd("ClaudeCode", "", "Claude Code is disabled"), desc = "Toggle Claude Code" },
+        ["<Leader>Ac"] = { run_if_cmd("Codex", "", "Codex Code is disabled"), desc = "Toggle Codex" },
         ["<Leader>Ap"] = { run_if_cmd("Copilot", "panel", "Copilot panel unavailable"), desc = "Copilot panel" },
         ["<Leader>Aq"] = { run_if_cmd("AmazonQ", "", "Amazon Q is disabled"), desc = "Amazon Q chat" },
         ["<Leader>AcC"] = {

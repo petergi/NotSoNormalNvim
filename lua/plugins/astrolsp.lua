@@ -58,6 +58,12 @@ return {
     config = {
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
     },
+    -- customize capabilities for all LSP servers
+    capabilities = {
+      general = {
+        positionEncodings = { "utf-8", "utf-16" },
+      },
+    },
     -- customize how language servers are attached
     handlers = {
       -- a function without a key is simply the default handler, functions take two parameters, the server name and the configured options table for that server

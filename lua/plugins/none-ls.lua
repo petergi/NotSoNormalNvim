@@ -13,6 +13,12 @@ return {
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/formatting
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 
+    -- Set position encoding capabilities
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    capabilities.general = capabilities.general or {}
+    capabilities.general.positionEncodings = { 'utf-8', 'utf-16' }
+    opts.capabilities = capabilities
+
     -- Only insert new sources, do not replace the existing ones
     -- (If you wish to replace, use `opts.sources = {}` instead of the `list_insert_unique` function)
     opts.sources = require("astrocore").list_insert_unique(opts.sources, {

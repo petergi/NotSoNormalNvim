@@ -16,7 +16,7 @@ return {
     end,
     opts = {
       ssoStartUrl = "https://view.awsapps.com/start", -- For Free Tier with AWS Builder ID
-      -- Filetypes where the Q will be activated
+
       -- See: https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/q-language-ide-support.html
       -- `amazonq` is required for Q Chat feature.
       filetypes = {

@@ -20,8 +20,26 @@ return {
     { "MunifTanjim/nui.nvim", lazy = true },
   },
   opts = {
+    -- acp_providers = {
+    --   ["claude-code"] = {
+    --     command = "npx",
+    --     args = { "@zed-industries/claude-code-acp" },
+    --     env = {
+    --       NODE_NO_WARNINGS = "1",
+    --       ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY"),
+    --     },
+    --   },
+    --   ["codex"] = {
+    --     command = "codex-acp",
+    --     env = {
+    --       NODE_NO_WARNINGS = "1",
+    --       OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
+    --     },
+    --   },
+    -- },
     provider = "copilot",
-    auto_suggestions_provider = "claude",
+    -- provider = "claude-code",
+    -- auto_suggestions_provider = "claude",
     behaviour = {
       auto_suggestions = true, -- Experimental stage
     },

@@ -1,3 +1,4 @@
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 return {
   {
     "folke/snacks.nvim",
@@ -32,8 +33,8 @@ return {
         left = { "mark", "sign" }, -- priority of signs on the left (high to low)
         right = { "fold", "git" }, -- priority of signs on the right (high to low)
         folds = {
-          open = false, -- show open fold icons
-          git_hl = false, -- use Git Signs hl for fold icons
+          open = true, -- show open fold icons
+          git_hl = true, -- use Git Signs hl for fold icons
         },
         git = {
           -- patterns to match Git signs
@@ -110,7 +111,7 @@ return {
   },
   {
     "rebelot/heirline.nvim",
-    opts = function(_, opts) opts.statuscolumn = false end,
+    opts = function(_, opts) opts.statuscolumn = true end,
   },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "rcarriga/nvim-notify", enabled = true },

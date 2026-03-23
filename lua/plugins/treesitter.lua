@@ -3,6 +3,28 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+    init = function()
+      -- PATCH: tree-sitter CLI >=0.25 removed --no-bindings, but the archived
+      -- master branch of nvim-treesitter still passes it. Monkey-patch the
+      -- generate args after the module loads. Safe to delete when AstroNvim
+      -- upgrades to a compatible nvim-treesitter version.
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "LazyLoad",
+        callback = function(event)
+          if event.data ~= "nvim-treesitter" then return end
+          local ok, install = pcall(require, "nvim-treesitter.install")
+          if ok then
+            local ts_version = require("nvim-treesitter.utils").ts_cli_version()
+            if ts_version and vim.split(ts_version, " ")[1] > "0.20.2" then
+              install.ts_generate_args = { "generate", "--abi", vim.treesitter.language_version }
+            else
+              install.ts_generate_args = { "generate" }
+            end
+          end
+          return true -- removes this autocmd after firing
+        end,
+      })
+    end,
     opts = function(_, opts)
       opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed or {}, {
         "bash",

@@ -1,21 +1,24 @@
--- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 -- Customize None-ls sources
+
 ---@type LazySpec
--- ~/.config/nvim/lua/plugins/none-ls.lua
 return {
   "nvimtools/none-ls.nvim",
-  event = "VeryLazy",
-  dependencies = { "nvim-lua/plenary.nvim" },
   opts = function(_, opts)
-    local nls = require("null-ls")
-    -- opts.sources = opts.sources or {}
+    -- opts variable is the default configuration table for the setup function call
+    -- local null_ls = require "null-ls"
+
+    -- Check supported formatters and linters
+    -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+    -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+
+    -- Only insert new sources, do not replace the existing ones
+    -- (If you wish to replace, use `opts.sources = {}` instead of the `list_insert_unique` function)
     opts.sources = require("astrocore").list_insert_unique(opts.sources, {
-      -- add/remove to taste:
-      nls.builtins.formatting.stylua,
-      -- nls.builtins.formatting.prettierd,
-      -- nls.builtins.diagnostics.eslint_d,
-      -- nls.builtins.formatting.black,
-      -- nls.builtins.formatting.shfmt,
+      -- Set a formatter
+      -- null_ls.builtins.formatting.stylua,
+      -- null_ls.builtins.formatting.prettier,
     })
   end,
 }

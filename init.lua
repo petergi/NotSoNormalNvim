@@ -1,18 +1,5 @@
 -- This file simply bootstraps the installation of Lazy.nvim and then calls other files for execution
 -- This file doesn't necessarily need to be touched, BE CAUTIOUS editing this file and proceed at your own risk.
-
--- Ensure Neovim inherits the full shell PATH (macOS GUI launches get a minimal PATH)
--- .zshenv sources exports.zsh so a plain non-interactive shell is sufficient
-if vim.fn.has "mac" == 1 then
-  local shell = vim.env.SHELL or "/bin/zsh"
-  local handle = io.popen(shell .. " -c 'echo $PATH' 2>/dev/null")
-  if handle then
-    local shell_path = handle:read "*l"
-    handle:close()
-    if shell_path and shell_path ~= "" then vim.env.PATH = shell_path end
-  end
-end
-
 local lazypath = vim.env.LAZY or vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then

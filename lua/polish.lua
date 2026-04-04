@@ -1,3 +1,5 @@
--- Runs last in the setup process for user tweaks that don't fit elsewhere.
-local ok, fix = pcall(require, "utils.astrocore_buffer_fix")
-if ok then fix.ensure() end
+if true then return end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
+-- This will run last in the setup process.
+-- This is just pure lua so anything that doesn't
+-- fit in the normal config locations above can go here

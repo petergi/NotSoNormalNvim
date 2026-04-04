@@ -153,7 +153,7 @@ function M.get_clients(opts)
     ret = vim.lsp.get_active_clients(opts)
     if opts and opts.method then
       ---@param client vim.lsp.Client
-      ret = vim.tbl_filter(function(client) return client.supports_method(opts.method, { bufnr = opts.bufnr }) end, ret)
+      ret = vim.tbl_filter(function(client) return client:supports_method(opts.method, opts.bufnr) end, ret)
     end
   end
   return opts and opts.filter and vim.tbl_filter(opts.filter, ret) or ret

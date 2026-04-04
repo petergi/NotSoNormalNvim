@@ -5,6 +5,8 @@
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
 
+local codelens_enabled = true
+
 ---@type LazySpec
 return {
   "AstroNvim/astrolsp",
@@ -23,7 +25,7 @@ return {
     },
     -- Configuration table of features provided by AstroLSP
     features = {
-      codelens = true, -- enable/disable codelens refresh on start
+      codelens = false, -- handled locally with the Neovim 0.12 codelens API
       inlay_hints = true, -- enable/disable inlay hints on start
       semantic_tokens = true, -- enable/disable semantic token highlighting
       signature_help = true, -- enable automatic signature help popup globally on startup
@@ -81,7 +83,7 @@ return {
         -- can either be a string of a client capability or a function of `fun(client, bufnr): boolean`
         -- condition will be resolved for each client on each execution and if it ever fails for all clients,
         -- the auto commands will be deleted for that buffer
-        cond = "textDocument/codeLens",
+        cond = function(client) return client:supports_method("textDocument/codeLens") end,
         -- cond = function(client, bufnr) return client.name == "lua_ls" end,
         -- list of auto commands to set
         {
@@ -90,7 +92,9 @@ return {
           -- the rest of the autocmd options (:h nvim_create_autocmd)
           desc = "Refresh codelens (buffer)",
           callback = function(args)
-            if require("astrolsp").config.features.codelens then vim.lsp.codelens.refresh { bufnr = args.buf } end
+            if codelens_enabled then
+              vim.lsp.codelens.enable(true, { bufnr = args.buf })
+            end
           end,
         },
       },
@@ -102,13 +106,13 @@ return {
         gD = {
           function() vim.lsp.buf.declaration() end,
           desc = "Declaration of current symbol",
-          cond = "textDocument/declaration",
+          cond = function(client) return client:supports_method("textDocument/declaration") end,
         },
         ["<Leader>uY"] = {
           function() require("astrolsp.toggles").buffer_semantic_tokens() end,
           desc = "Toggle LSP semantic highlight (buffer)",
           cond = function(client)
-            return client.supports_method "textDocument/semanticTokens/full" and vim.lsp.semantic_tokens ~= nil
+            return client:supports_method "textDocument/semanticTokens/full" and vim.lsp.semantic_tokens ~= nil
           end,
         },
       },
@@ -116,6 +120,10 @@ return {
     -- A custom `on_attach` function to be run after the default `on_attach` function
     -- takes two parameters `client` and `bufnr`  (`:h lspconfig-setup`)
     on_attach = function(client, bufnr)
+      if codelens_enabled and client:supports_method("textDocument/codeLens") then
+        vim.lsp.codelens.enable(true, { bufnr = bufnr })
+      end
+
       -- this would disable semanticTokensProvider for all clients
       -- client.server_capabilities.semanticTokensProvider = nil
     end,

@@ -13,7 +13,7 @@ return {
   { import = "astrocommunity.colorscheme.catppuccin" },
   { import = "astrocommunity.colorscheme.rose-pine" },
   { import = "astrocommunity.color.headlines-nvim" },
-    { import = "astrocommunity.recipes.neovide" },
+  { import = "astrocommunity.recipes.neovide" },
 
   -- import/override with your plugins folder
    { import = "astrocommunity.editing-support.nvim-regexplainer" },
@@ -24,11 +24,21 @@ return {
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
-
   { import = "astrocommunity.indent.snacks-indent-hlchunk" },
-
   { import = "astrocommunity.lsp.actions-preview-nvim" },
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.java" },
   { import = "astrocommunity.pack.swift" },
+  { import = "astrocommunity.docker.lazydocker" },
+  { import = "astrocommunity.git.diffview-nvim" },
+  { import = "astrocommunity.git.gitgraph-nvim" },
+  { import = "astrocommunity.lsp.actions-preview-nvim" },
+  
+  { import = "astrocommunity.pack.bash" },
+  { import = "astrocommunity.pack.biome" },
+  { import = "astrocommunity.pack.go" },
+  { import = "astrocommunity.pack.helm" },
+  { import = "astrocommunity.workflow.precognition-nvim" },
 }
+
+  
